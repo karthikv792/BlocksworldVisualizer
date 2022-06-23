@@ -144,6 +144,18 @@ class Executor:
         for i in self.not_true_preds:
             self.final_state_dict[i] = "No"
 
+    def get_all_states(self, curr_state, plan):
+        initial_state = curr_state
+        all_states = [initial_state]
+        for act in plan:
+            act = act.upper()
+            act_adds = self.get_sets(self.model[DOMAIN][act][ADDS])
+            act_dels = self.get_sets(self.model[DOMAIN][act][DELS])
+            initial_state = initial_state.union(act_adds)
+            initial_state = initial_state.difference(act_dels)
+            all_states.append(initial_state)
+        return all_states
+
     def get_final_state(self, curr_state, start, end):
         initial_state = curr_state
 
