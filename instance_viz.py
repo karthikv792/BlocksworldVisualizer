@@ -3,7 +3,7 @@ import pygame
 class Instance_Viz:
     def __init__(self):
         self.screen_size = [800,800]
-        self.screen = pygame.display.set_mode(self.screen_size)
+        self.screen = pygame.display.set_mode(self.screen_size, flags=pygame.HIDDEN)
         self.pic_size = (60,60)
         self.offset = 235
         self.blocks = {}
@@ -22,6 +22,7 @@ class Instance_Viz:
         on_blocks = []
         my_font = pygame.font.SysFont('Comic Sans MS', 30)
         # Add goal state - currently handles only on predicates
+        self.screen.fill((255, 255, 255))
         goal_text_surface = my_font.render('Goal state:', False, (220, 0, 0))
         self.screen.blit(goal_text_surface, (self.screen_size[0]-300,10))
         for predicate in goal_state:
